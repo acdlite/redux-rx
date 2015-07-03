@@ -30,9 +30,9 @@ describe('observableMiddleware', () => {
     }).toPromise().catch(noop);
 
     expect(baseDispatch.args.map(args => args[0])).to.deep.equal([
-      { type: 'ACTION_TYPE', payload: 1, status: 'success' },
-      { type: 'ACTION_TYPE', payload: 2, status: 'success' },
-      { type: 'ACTION_TYPE', payload: error, status: 'error' }
+      { type: 'ACTION_TYPE', payload: 1 },
+      { type: 'ACTION_TYPE', payload: 2 },
+      { type: 'ACTION_TYPE', payload: error, error: true }
     ]);
   });
 

@@ -15,8 +15,8 @@ export function observableMiddleware(next) {
 
     return isObservable(action.payload)
       ? action.payload
-          .doOnNext(x => next({ ...action, payload: x, status: 'success' }))
-          .doOnError(e => next({ ...action, payload: e, status: 'error' }))
+          .doOnNext(x => next({ ...action, payload: x }))
+          .doOnError(e => next({ ...action, payload: e, error: true }))
       : next(action);
   };
 }
