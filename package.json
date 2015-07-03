@@ -1,0 +1,38 @@
+{
+  "name": "redux-rx",
+  "version": "0.1.0",
+  "description": "RxJS utilities for Redux",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "make test",
+    "prepublish": "make clean build"
+  },
+  "keywords": [
+    "redux",
+    "observable",
+    "middleware",
+    "redux-middleware",
+    "rxjs",
+    "rx",
+    "reactive",
+    "fsa",
+    "flux"
+  ],
+  "author": "Andrew Clark <acdlite@me.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "babel": "^5.6.14",
+    "babel-core": "^5.6.15",
+    "babel-eslint": "^3.1.20",
+    "chai": "^3.0.0",
+    "chai-as-promised": "^5.1.0",
+    "eslint": "^0.24.0",
+    "eslint-config-airbnb": "0.0.6",
+    "mocha": "^2.2.5",
+    "rx": "^2.5.3",
+    "sinon": "^1.15.4"
+  },
+  "dependencies": {
+    "flux-standard-action": "^0.1.0"
+  }
+}
