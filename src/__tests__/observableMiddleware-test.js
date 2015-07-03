@@ -7,18 +7,18 @@ function noop() {}
 describe('observableMiddleware', () => {
   let baseDispatch;
   let dispatch;
-  let err;
+  let error;
   let foobar;
   let stream;
 
   beforeEach(() => {
     baseDispatch = spy();
     dispatch = observableMiddleware(baseDispatch);
-    err = new Error();
+    error = new Error();
     foobar = { foo: 'bar' };
     stream = Observable.concat(
       Observable.of(1, 2),
-      Observable.throw(err),
+      Observable.throw(error),
       Observable.of(3)
     );
   });
@@ -32,7 +32,7 @@ describe('observableMiddleware', () => {
     expect(baseDispatch.args.map(args => args[0])).to.deep.equal([
       { type: 'ACTION_TYPE', payload: 1, status: 'success' },
       { type: 'ACTION_TYPE', payload: 2, status: 'success' },
-      { type: 'ACTION_TYPE', payload: err, status: 'error' }
+      { type: 'ACTION_TYPE', payload: error, status: 'error' }
     ]);
   });
 
