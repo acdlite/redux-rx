@@ -13,7 +13,7 @@ npm install --save redux-rx
 ## Usage
 
 ```js
-import { observableMiddleware } from 'redux-rx';
+import { observableMiddleware, observableFromStore } from 'redux-rx';
 ```
 
 ### `observableMiddleware`
