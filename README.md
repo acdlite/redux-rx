@@ -4,7 +4,7 @@ redux-rx
 [![build status](https://img.shields.io/travis/acdlite/redux-rx/master.svg?style=flat-square)](https://travis-ci.org/acdlite/redux-rx)
 [![npm version](https://img.shields.io/npm/v/redux-rx.svg?style=flat-square)](https://www.npmjs.com/package/redux-rx)
 
-[FSA](https://github.com/acdlite/flux-standard-action)-compliant promise [middleware](https://github.com/gaearon/redux/blob/master/docs/middleware.md) for Redux.
+RxJS utilities for Redux. Includes an [FSA](https://github.com/acdlite/flux-standard-action)-compliant observable [middleware](https://github.com/gaearon/redux/blob/master/docs/middleware.md) and a function to create a sequence of states from a Redux store.
 
 ```js
 npm install --save redux-rx
