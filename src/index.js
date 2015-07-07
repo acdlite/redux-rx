@@ -1,28 +1,7 @@
-import { isFSA } from 'flux-standard-action';
-import { Observable } from 'rx';
+import observableFromStore from './observableFromStore';
+import observableMiddleware from './observableMiddleware';
 
-function isObservable(val) {
-  return val instanceof Observable;
-}
-
-export function observableMiddleware(next) {
-  return action => {
-    if (!isFSA(action)) {
-      return isObservable(action)
-        ? action.doOnNext(next)
-        : next(action);
-    }
-
-    return isObservable(action.payload)
-      ? action.payload
-          .doOnNext(x => next({ ...action, payload: x }))
-          .doOnError(e => next({ ...action, payload: e, error: true }))
-      : next(action);
-  };
-}
-
-export function observableFromStore(store) {
-  return Observable.create(observer =>
-    store.subscribe(() => observer.onNext(store.getState()))
-  );
-}
+export {
+  observableFromStore,
+  observableMiddleware
+};

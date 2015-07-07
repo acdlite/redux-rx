@@ -4,7 +4,11 @@ redux-rx
 [![build status](https://img.shields.io/travis/acdlite/redux-rx/master.svg?style=flat-square)](https://travis-ci.org/acdlite/redux-rx)
 [![npm version](https://img.shields.io/npm/v/redux-rx.svg?style=flat-square)](https://www.npmjs.com/package/redux-rx)
 
-RxJS utilities for Redux. Includes an [FSA](https://github.com/acdlite/flux-standard-action)-compliant observable [middleware](https://github.com/gaearon/redux/blob/master/docs/middleware.md) and a function to create a sequence of states from a Redux store.
+RxJS utilities for Redux. Includes
+
+- A utility to create Connector-like smart components using RxJS sequences.
+- An [FSA](https://github.com/acdlite/flux-standard-action)-compliant observable [middleware](https://github.com/gaearon/redux/blob/master/docs/middleware.md)
+- A utility to create a sequence of states from a Redux store.
 
 ```js
 npm install --save redux-rx
@@ -13,8 +17,62 @@ npm install --save redux-rx
 ## Usage
 
 ```js
+import { createConnector } from 'redux-rx/react';
 import { observableMiddleware, observableFromStore } from 'redux-rx';
 ```
+
+## `createConnector(selectState, ?render)`
+
+This lets you create Connector-like smart components using RxJS sequences. `selectState()` accepts three sequences as parameters
+
+- `props$` - A sequence of props passed from the owner
+- `state$` - A sequence of state from the Redux store
+- `dispatch$` - A sequence representing the `dispatch()` method. In real-world usage, this should sequence only has a single value, but it's provided as a sequence for correctness.
+
+`selectState()` should return a sequence of props that can be passed to the child. This provides a great integration point for [sideways data-loading](https://github.com/facebook/react/issues/3398).
+
+Here's a simple example using web sockets:
+
+```js
+const TodoConnector = createConnector((props$, state$, dispatch$) => {
+  const actionCreators$ = dispatch$.map(d => bindActionCreators(actionCreators, d));
+  const selectedState$ = state$.map(s => s.messages);
+  const count$ = increment$.startWith(0).scan(t => t + 1);
+
+  // Connect to a websocket using rx-dom
+  fromWebSocket('ws://chat.foobar.org').map(e => e.data)
+    .withLatestFrom(actionCreators$, (message, ac) =>
+      () => ac.receiveMessage(message)
+    )
+    .do(dispatchAction => dispatchAction()); // Dispatch action for new messages
+
+  return combineLatest(
+    props$, selectedState$, actionCreators$,
+    (props, selectedState, actionCreators) => ({
+      ...props,
+      ...selectedState,
+      ...actionCreators
+    }));
+});
+```
+
+Pretty simple, right? Notice how there are no event handers to clean up, no `componentWillReceiveProps()`, no `setState`. Everything is just a sequence.
+
+If you're new to RxJS, this may look confusing at first, but — like React — if you give it a try you may be surprised by how simple and *fun* reactive programming can be.
+
+**TODO: React Router example. See [this comment](https://github.com/gaearon/redux/issues/227#issuecomment-119237073) for now.**
+
+`render()` is an optional second parameter which maps child props to a React element (vdom). If it is omitted, the resulting component is used using the child-as-function pattern:
+
+```js
+<RxConnector>
+ {props => <DumbComponent {...props} />}
+</RxConnector>
+```
+
+Not that unlike Redux's built-in Connector, the resulting component does not have a `select` prop. It is superseded by the `selectState` function described above. Internally, `shouldComponentUpdate()` is still used for performance.
+
+**NOTE** `createConnector()` is a wrapper around [react-rx-component](https://github.com/acdlite/react-rx-component). Check out that project for more information on how to use RxJS to construct smart components.
 
 ### `observableMiddleware`
 
