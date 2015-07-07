@@ -7,6 +7,7 @@ redux-rx
 RxJS utilities for Redux. Includes
 
 - A utility to create Connector-like smart components using RxJS sequences.
+  - A special version of `bindActionCreators()` that works with sequences.
 - An [FSA](https://github.com/acdlite/flux-standard-action)-compliant observable [middleware](https://github.com/gaearon/redux/blob/master/docs/middleware.md)
 - A utility to create a sequence of states from a Redux store.
 
@@ -18,7 +19,7 @@ npm install --save redux-rx
 
 ```js
 import { createConnector } from 'redux-rx/react';
-import { observableMiddleware, observableFromStore } from 'redux-rx';
+import { bindActionCreators, observableMiddleware, observableFromStore } from 'redux-rx';
 ```
 
 ## `createConnector(selectState, ?render)`
@@ -35,7 +36,8 @@ Here's a simple example using web sockets:
 
 ```js
 const TodoConnector = createConnector((props$, state$, dispatch$) => {
-  const actionCreators$ = dispatch$.map(d => bindActionCreators(actionCreators, d));
+  // Special version of bindActionCreators that works with sequences; see below
+  const actionCreators$ = bindActionCreators(actionCreators, dispatch$);
   const selectedState$ = state$.map(s => s.messages);
   const count$ = increment$.startWith(0).scan(t => t + 1);
 
@@ -73,6 +75,10 @@ If you're new to RxJS, this may look confusing at first, but — like React — 
 Not that unlike Redux's built-in Connector, the resulting component does not have a `select` prop. It is superseded by the `selectState` function described above. Internally, `shouldComponentUpdate()` is still used for performance.
 
 **NOTE** `createConnector()` is a wrapper around [react-rx-component](https://github.com/acdlite/react-rx-component). Check out that project for more information on how to use RxJS to construct smart components.
+
+### `bindActionCreators(actionCreators, dispatch$)`
+
+This is the same, except `dispatch$` can be either a dispatch function *or* a sequence of dispatch functions. See previous section for context.
 
 ### `observableMiddleware`
 

@@ -1,5 +1,6 @@
 import createConnector from '../createConnector';
-import { createRedux, bindActionCreators } from 'redux';
+import { createRedux } from 'redux';
+import { bindActionCreators } from '../';
 import { Provider } from 'redux/react';
 import { Observable } from 'rx';
 import { funcSubject } from 'react-rx-component';
@@ -31,7 +32,7 @@ describe('createConnector()', () => {
     const increment$ = funcSubject();
 
     const TodoConnector = createConnector((props$, state$, dispatch$) => {
-      const actionCreators$ = dispatch$.map(d => bindActionCreators(actionCreators, d));
+      const actionCreators$ = bindActionCreators(actionCreators, dispatch$);
       const selectedState$ = state$.map(s => s.todos);
       const count$ = increment$.startWith(0).scan(t => t + 1);
 
