@@ -39,7 +39,6 @@ const TodoConnector = createConnector((props$, state$, dispatch$) => {
   // Special version of bindActionCreators that works with sequences; see below
   const actionCreators$ = bindActionCreators(actionCreators, dispatch$);
   const selectedState$ = state$.map(s => s.messages);
-  const count$ = increment$.startWith(0).scan(t => t + 1);
 
   // Connect to a websocket using rx-dom
   fromWebSocket('ws://chat.foobar.org').map(e => e.data)
