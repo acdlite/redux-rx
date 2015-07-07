@@ -1,6 +1,6 @@
 {
   "name": "redux-rx",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "RxJS utilities for Redux",
   "main": "lib/index.js",
   "scripts": {
