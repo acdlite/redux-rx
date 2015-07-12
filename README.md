@@ -41,14 +41,14 @@ const TodoConnector = createConnector((props$, state$, dispatch$) => {
   const selectedState$ = state$.map(s => s.messages);
 
   // Connect to a websocket using rx-dom
-  fromWebSocket('ws://chat.foobar.org').map(e => e.data)
+  const $ws = fromWebSocket('ws://chat.foobar.org').map(e => e.data)
     .withLatestFrom(actionCreators$, (message, ac) =>
       () => ac.receiveMessage(message)
     )
     .do(dispatchAction => dispatchAction()); // Dispatch action for new messages
 
   return combineLatest(
-    props$, selectedState$, actionCreators$,
+    props$, selectedState$, actionCreators$, $ws,
     (props, selectedState, actionCreators) => ({
       ...props,
       ...selectedState,
