@@ -1,7 +1,7 @@
 import createConnector from '../createConnector';
-import { createRedux } from 'redux';
+import { createStore, combineReducers } from 'redux';
 import { bindActionCreators } from '../';
-import { Provider } from 'redux/react';
+import { Provider } from 'react-redux';
 import { Observable } from 'rx';
 import { funcSubject } from 'react-rx-component';
 import jsdom from './jsdom';
@@ -26,7 +26,7 @@ describe('createConnector()', () => {
   jsdom();
 
   it('creates a Connector-like component using RxJS sequences', () => {
-    const store = createRedux({ todos: todoReducer });
+    const store = createStore(combineReducers({ todos: todoReducer }));
 
     // External source
     const increment$ = funcSubject();
@@ -47,7 +47,7 @@ describe('createConnector()', () => {
     });
 
     const tree = TestUtils.renderIntoDocument(
-      <Provider redux={store}>
+      <Provider store={store}>
         {() => (
           <TodoConnector>
             {props => <div {...props} />}
