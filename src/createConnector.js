@@ -7,13 +7,14 @@ export default function createConnector(selectState, render) {
     (props$, context$) => selectState(
       props$,
       context$.flatMap(
-        c => observableFromStore(c.redux).startWith(c.redux.getState())
+        c => observableFromStore(c.store).startWith(c.store.getState())
       ),
-      context$.map(c => c.redux.dispatch)
+      context$.map(c => c.store.dispatch),
+      context$
     ),
     render
   );
   Connector.displayName = 'Connector';
-  Connector.contextTypes = { redux: PropTypes.object };
+  Connector.contextTypes = { store: PropTypes.object };
   return Connector;
 }
