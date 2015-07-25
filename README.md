@@ -12,7 +12,7 @@ RxJS utilities for Redux. Includes
 - A utility to create a sequence of states from a Redux store.
 
 ```js
-npm install --save redux-rx
+npm install --save redux-rx rx
 ```
 
 ## Usage
