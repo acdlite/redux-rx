@@ -57,7 +57,7 @@ const TodoConnector = createConnector((props$, state$, dispatch$) => {
 });
 ```
 
-Pretty simple, right? Notice how there are no event handers to clean up, no `componentWillReceiveProps()`, no `setState`. Everything is just a sequence.
+Pretty simple, right? Notice how there are no event handlers to clean up, no `componentWillReceiveProps()`, no `setState`. Everything is just a sequence.
 
 If you're new to RxJS, this may look confusing at first, but — like React — if you give it a try you may be surprised by how simple and *fun* reactive programming can be.
 
