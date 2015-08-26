@@ -44,14 +44,12 @@ describe('createConnector()', () => {
           addTodo,
           count
         }));
-    });
+    }, props => <div {...props} />);
 
     const tree = TestUtils.renderIntoDocument(
       <Provider store={store}>
         {() => (
-          <TodoConnector>
-            {props => <div {...props} />}
-          </TodoConnector>
+          <TodoConnector />
         )}
       </Provider>
     );

@@ -44,6 +44,6 @@
   "dependencies": {
     "flux-standard-action": "^0.6.0",
     "react-redux": "^0.2.2",
-    "react-rx-component": "^0.3.0"
+    "react-rx-component": "^0.5.0"
   }
 }
