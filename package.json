@@ -1,6 +1,6 @@
 {
   "name": "redux-rx",
-  "version": "0.4.0-alpha",
+  "version": "0.4.0",
   "description": "RxJS utilities for Redux",
   "main": "lib/index.js",
   "scripts": {
