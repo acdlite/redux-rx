@@ -21,6 +21,7 @@
   "author": "Andrew Clark <acdlite@me.com>",
   "homepage": "https://github.com/acdlite/redux-rx",
   "license": "MIT",
+  "repository": "acdlite/redux-rx",
   "bugs": {
     "url": "https://github.com/acdlite/redux-rx/issues"
   },
