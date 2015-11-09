@@ -5,10 +5,10 @@ import { Provider } from 'react-redux';
 import { Observable } from 'rx';
 import { funcSubject } from 'react-rx-component';
 import jsdom from './jsdom';
-import React from 'react/addons';
+import React from 'react';
+import TestUtils from 'react-addons-test-utils';
 
 const { combineLatest } = Observable;
-const { TestUtils } = React.addons;
 
 const actionCreators = {
   addTodo(text) {
@@ -48,9 +48,7 @@ describe('createConnector()', () => {
 
     const tree = TestUtils.renderIntoDocument(
       <Provider store={store}>
-        {() => (
-          <TodoConnector />
-        )}
+        <TodoConnector />
       </Provider>
     );
 

@@ -1,4 +1,4 @@
-import ExecutionEnvironment from 'react/lib/ExecutionEnvironment';
+import ExecutionEnvironment from 'fbjs/lib/ExecutionEnvironment';
 import jsdom from 'mocha-jsdom';
 
 export default function jsdomReact() {
