@@ -13,7 +13,7 @@ describe('observableMiddleware', () => {
 
   beforeEach(() => {
     baseDispatch = spy();
-    dispatch = observableMiddleware(baseDispatch);
+    dispatch = observableMiddleware()(baseDispatch);
     error = new Error();
     foobar = { foo: 'bar' };
     stream = Observable.concat(
