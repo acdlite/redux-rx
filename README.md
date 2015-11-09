@@ -63,7 +63,7 @@ If you're new to RxJS, this may look confusing at first, but — like React — 
 
 **TODO: React Router example. See [this comment](https://github.com/gaearon/redux/issues/227#issuecomment-119237073) for now.**
 
-`render()` is an optional second parameter which maps child props to a React element (vdom). This parameter can also be a React Component class — or, if you omit it entirely, a higher-order component is returned. See `createRxComponent()` of [react-rx-component](https://gihub.com/acdlite/react-rx-component) for more details. (This function is a wrapper around that library's `createRxComponent()`.)
+`render()` is an optional second parameter which maps child props to a React element (vdom). This parameter can also be a React Component class — or, if you omit it entirely, a higher-order component is returned. See `createRxComponent()` of [react-rx-component](https://github.com/acdlite/react-rx-component) for more details. (This function is a wrapper around that library's `createRxComponent()`.)
 
 Not that unlike Redux's built-in Connector, the resulting component does not have a `select` prop. It is superseded by the `selectState` function described above. Internally, `shouldComponentUpdate()` is still used for performance.
 
