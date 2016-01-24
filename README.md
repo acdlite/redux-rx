@@ -28,7 +28,7 @@ This lets you create Connector-like smart components using RxJS sequences. `sele
 
 - `props$` - A sequence of props passed from the owner
 - `state$` - A sequence of state from the Redux store
-- `dispatch$` - A sequence representing the `dispatch()` method. In real-world usage, this should sequence only has a single value, but it's provided as a sequence for correctness.
+- `dispatch$` - A sequence representing the `dispatch()` method. In real-world usage, this sequence only has a single value, but it's provided as a sequence for correctness.
 
 `selectState()` should return a sequence of props that can be passed to the child. This provides a great integration point for [sideways data-loading](https://github.com/facebook/react/issues/3398).
 
