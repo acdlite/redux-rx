@@ -2,7 +2,7 @@ import { isFSA } from 'flux-standard-action';
 import isObservable from './isObservable';
 
 export default function observableMiddleware() {
-  return next => action => {
+  return store => next => action => {
     if (!isFSA(action)) {
       return isObservable(action)
         ? action.doOnNext(next)
